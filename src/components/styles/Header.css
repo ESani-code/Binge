@@ -79,3 +79,13 @@
   font-size: 0.875rem;
   width: 200px;
 }
+
+@media (max-width: 768px) {
+  .nav-links ul {
+    display: none;
+  }
+
+  .search input {
+    width: 150px;
+  }
+}
