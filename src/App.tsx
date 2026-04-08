@@ -1,5 +1,9 @@
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <h1> This is the App component </h1>
+    </div>
+  );
 };
 
 export default App;
