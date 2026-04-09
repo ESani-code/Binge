@@ -45,7 +45,7 @@
 
 .nav-links .active {
   color: var(--color-accent);
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .search {
