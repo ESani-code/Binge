@@ -1,0 +1,151 @@
+.trending-section {
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+}
+
+.filters-row {
+  margin-bottom: 1.5rem;
+}
+
+/* --- Genre Filter Pills --- */
+.genre-pill {
+  white-space: nowrap;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--transition-base, all 0.2s ease);
+}
+
+.genre-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+}
+
+.genre-pill.active {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+/* --- Movie Cards --- */
+.movie-card {
+  min-width: 150px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .movie-card {
+    min-width: 180px;
+    width: 180px;
+  }
+}
+
+.card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-md, 8px);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--color-bg-muted);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+/* Dark gradient overlay at bottom of card image for rating visibility */
+.card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.rating {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating-star {
+  color: var(--color-secondary);
+}
+
+/* Bookmark Button */
+.card-bookmark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0; /* Hidden by default */
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease;
+}
+
+.movie-card:hover .card-bookmark {
+  opacity: 1; /* Shows on card hover */
+}
+
+.card-bookmark:hover {
+  background: var(--color-accent);
+}
+
+/* Card Text Styling */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." to long titles */
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
