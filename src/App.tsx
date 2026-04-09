@@ -1,6 +1,7 @@
 import "./App.css";
 
 import HomeView from "./pages/HomeView";
+import SearchResults from "./pages/SearchResults";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -14,6 +15,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<HomeView />} />
+          <Route path="search" element={<SearchResults />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
