@@ -4,9 +4,11 @@ import "./styles/HomeView.css";
 interface Movie {
   id: number;
   title: string;
+  name: string;
   overview: string;
   backdrop_path: string | null;
   release_date: string;
+  first_air_date: string;
   vote_average: number;
 }
 
@@ -21,13 +23,13 @@ const HomeView = () => {
         const apiKey = import.meta.env.VITE_TMDB_API_KEY;
         //Fetching Movie data from TMDB API
         const response = await fetch(
-          `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}`,
+          `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`,
         );
         const data = await response.json();
 
         setTrendingMovies(data.results);
 
-        if (data.results && data.results.lenght > 0) {
+        if (data.results && data.results.length > 0) {
           setFeaturedMovie(data.results[0]);
         }
 
@@ -75,7 +77,7 @@ const HomeView = () => {
           </div>
 
           <h1 className="hero-title animate-in delay-1">
-            {featuredMovie.title.toUpperCase()}
+            {(featuredMovie.title || featuredMovie.name).toUpperCase()}
           </h1>
 
           <div className="hero-meta animate-in delay-2">
