@@ -80,16 +80,6 @@
   width: 200px;
 }
 
-@media (max-width: 768px) {
-  .nav-links ul {
-    display: none;
-  }
-
-  .search input {
-    width: 180px;
-  }
-}
-
 /* --- MOBILE MENU BUTTON --- */
 .mobile-menu-btn {
   display: none; /* Hidden on desktop */
@@ -167,6 +157,16 @@
     padding: 1rem;
   }
 
+  .nav-links {
+    display: none; /* Hide desktop nav links */
+  }
+
+  .search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .navbar {
     margin: 0;
     gap: 1rem;
@@ -178,5 +178,13 @@
 
   .mobile-menu-btn {
     display: flex; /* Show hamburger button */
+  }
+
+  .nav-links ul {
+    display: none;
+  }
+
+  .search input {
+    width: 200px;
   }
 }
