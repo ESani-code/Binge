@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./styles/TrendingContent.css"; // Ensure this path is correct for your setup
+import { Link } from "react-router-dom";
 
 // Strict typing for the data we need from the API
 export interface Movie {
@@ -87,38 +88,45 @@ const TrendingContent = ({ trendingMovies }: TrendingContentProps) => {
           const posterUrl = movie.poster_path
             ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
             : ""; // Fallback background color handles missing posters
+          const itemPath = `/movie/${movie.id}`;
 
           return (
-            <div key={movie.id} className="movie-card">
-              <div
-                className="card-image"
-                style={{ backgroundImage: `url(${posterUrl})` }}
-              >
-                <div className="rating">
-                  <i className="bi bi-star-fill rating-star"></i>{" "}
-                  {movie.vote_average?.toFixed(1)}
-                </div>
-                <button
-                  className="card-bookmark"
-                  aria-label="Save to watchlist"
+            <Link
+              to={itemPath}
+              state={{ preloadedData: movie }}
+              className="card-details-link"
+            >
+              <div key={movie.id} className="movie-card">
+                <div
+                  className="card-image"
+                  style={{ backgroundImage: `url(${posterUrl})` }}
                 >
-                  <i className="bi bi-bookmark"></i>
-                </button>
-              </div>
+                  <div className="rating">
+                    <i className="bi bi-star-fill rating-star"></i>{" "}
+                    {movie.vote_average?.toFixed(1)}
+                  </div>
+                  <button
+                    className="card-bookmark"
+                    aria-label="Save to watchlist"
+                  >
+                    <i className="bi bi-bookmark"></i>
+                  </button>
+                </div>
 
-              <div className="card-content">
-                <h3 className="card-title" title={displayTitle}>
-                  {displayTitle}
-                </h3>
-                <div className="card-meta">
-                  <span>{year}</span>
-                  <span>•</span>
-                  <span style={{ textTransform: "capitalize" }}>
-                    {movie.media_type || "Movie"}
-                  </span>
+                <div className="card-content">
+                  <h3 className="card-title" title={displayTitle}>
+                    {displayTitle}
+                  </h3>
+                  <div className="card-meta">
+                    <span>{year}</span>
+                    <span>•</span>
+                    <span style={{ textTransform: "capitalize" }}>
+                      {movie.media_type || "Movie"}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
 
