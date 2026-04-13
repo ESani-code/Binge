@@ -522,124 +522,136 @@ const SearchResults = () => {
                     .filter(Boolean) as string[];
 
                   return (
-                    <article
-                      key={`${itemType}-${item.id}`}
-                      className="result-card glass-card"
-                      aria-label={title}
+                    <Link
+                      to={itemPath}
+                      state={{ preloadedData: item }} // <-- Add this!
+                      className="card-details-link"
                     >
-                      {/* ── Poster ── */}
-                      <div className="card-poster-area">
-                        {posterUrl ? (
-                          <img
-                            src={posterUrl}
-                            alt={`${title} poster`}
-                            className="card-poster-img"
-                            loading="lazy"
-                          />
-                        ) : backdropUrl ? (
-                          <img
-                            src={backdropUrl}
-                            alt={`${title} backdrop`}
-                            className="card-poster-img card-poster-backdrop"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className="card-poster-placeholder">
-                            <svg
-                              width="32"
-                              height="32"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              opacity="0.3"
-                            >
-                              <rect x="2" y="3" width="20" height="14" rx="2" />
-                              <path d="M8 21h8M12 17v4" />
-                            </svg>
-                          </div>
-                        )}
+                      <article
+                        key={`${itemType}-${item.id}`}
+                        className="result-card glass-card"
+                        aria-label={title}
+                      >
+                        {/* ── Poster ── */}
+                        <div className="card-poster-area">
+                          {posterUrl ? (
+                            <img
+                              src={posterUrl}
+                              alt={`${title} poster`}
+                              className="card-poster-img"
+                              loading="lazy"
+                            />
+                          ) : backdropUrl ? (
+                            <img
+                              src={backdropUrl}
+                              alt={`${title} backdrop`}
+                              className="card-poster-img card-poster-backdrop"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="card-poster-placeholder">
+                              <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                opacity="0.3"
+                              >
+                                <rect
+                                  x="2"
+                                  y="3"
+                                  width="20"
+                                  height="14"
+                                  rx="2"
+                                />
+                                <path d="M8 21h8M12 17v4" />
+                              </svg>
+                            </div>
+                          )}
 
-                        {/* Poster overlay on hover */}
-                        <div className="card-poster-overlay">
-                          <Link
-                            to={itemPath}
-                            className="card-play-btn"
-                            aria-label={`View details for ${title}`}
+                          {/* Poster overlay on hover */}
+                          <div className="card-poster-overlay">
+                            <Link
+                              to={itemPath}
+                              className="card-play-btn"
+                              aria-label={`View details for ${title}`}
+                            >
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                              >
+                                <polygon points="5 3 19 12 5 21 5 3" />
+                              </svg>
+                            </Link>
+                          </div>
+
+                          {/* Rating badge — top left */}
+                          <div
+                            className={`card-rating-badge${Number(rating) >= 7.5 ? " high" : Number(rating) >= 6 ? " mid" : " low"}`}
+                            aria-label={`Rating: ${rating}`}
+                          >
+                            ★ {rating}
+                          </div>
+
+                          {/* Bookmark — top right */}
+                          <button
+                            className={`card-bookmark-btn${bookmarked ? " bookmarked" : ""}`}
+                            onClick={() => toggleBookmark(item)}
+                            aria-label={
+                              bookmarked
+                                ? "Remove from watchlist"
+                                : "Add to watchlist"
+                            }
+                            aria-pressed={bookmarked}
                           >
                             <svg
-                              width="16"
-                              height="16"
+                              width="12"
+                              height="12"
                               viewBox="0 0 24 24"
-                              fill="currentColor"
+                              fill={bookmarked ? "currentColor" : "none"}
+                              stroke="currentColor"
+                              strokeWidth="2"
                             >
-                              <polygon points="5 3 19 12 5 21 5 3" />
+                              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                             </svg>
+                          </button>
+                        </div>
+
+                        {/* ── Card Body ── */}
+                        <div className="card-body">
+                          <div className="card-meta-row">
+                            <span className="card-type-label">{label}</span>
+                            <span className="card-year">{year}</span>
+                          </div>
+
+                          <h2 className="card-title">
+                            <Link to={itemPath}>{title}</Link>
+                          </h2>
+
+                          {genres.length > 0 && (
+                            <div className="card-genres">
+                              {genres.map((g) => (
+                                <span key={g} className="card-genre-tag">
+                                  {g}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          <p className="card-overview">
+                            {item.overview || "No overview available."}
+                          </p>
+
+                          <Link to={itemPath} className="card-details-link">
+                            View Details →
                           </Link>
                         </div>
-
-                        {/* Rating badge — top left */}
-                        <div
-                          className={`card-rating-badge${Number(rating) >= 7.5 ? " high" : Number(rating) >= 6 ? " mid" : " low"}`}
-                          aria-label={`Rating: ${rating}`}
-                        >
-                          ★ {rating}
-                        </div>
-
-                        {/* Bookmark — top right */}
-                        <button
-                          className={`card-bookmark-btn${bookmarked ? " bookmarked" : ""}`}
-                          onClick={() => toggleBookmark(item)}
-                          aria-label={
-                            bookmarked
-                              ? "Remove from watchlist"
-                              : "Add to watchlist"
-                          }
-                          aria-pressed={bookmarked}
-                        >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill={bookmarked ? "currentColor" : "none"}
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                          </svg>
-                        </button>
-                      </div>
-
-                      {/* ── Card Body ── */}
-                      <div className="card-body">
-                        <div className="card-meta-row">
-                          <span className="card-type-label">{label}</span>
-                          <span className="card-year">{year}</span>
-                        </div>
-
-                        <h2 className="card-title">
-                          <Link to={itemPath}>{title}</Link>
-                        </h2>
-
-                        {genres.length > 0 && (
-                          <div className="card-genres">
-                            {genres.map((g) => (
-                              <span key={g} className="card-genre-tag">
-                                {g}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-
-                        <p className="card-overview">
-                          {item.overview || "No overview available."}
-                        </p>
-
-                        <Link to={itemPath} className="card-details-link">
-                          View Details →
-                        </Link>
-                      </div>
-                    </article>
+                      </article>
+                    </Link>
                   );
                 })}
               </div>
